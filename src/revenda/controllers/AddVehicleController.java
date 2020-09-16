@@ -19,8 +19,4 @@ public class AddVehicleController {
 
         return resale.addVehicle(vehicle);
     }
-
-    public void clear() {
-        listVehicleController.columnData.forEach(System.out::println);
-    }
 }
