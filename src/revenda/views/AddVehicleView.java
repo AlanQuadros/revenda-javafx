@@ -28,11 +28,11 @@ public class AddVehicleView {
         grid.setBorder(new Border(new BorderStroke(Color.GRAY,
                 BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
-        tfBrand.setText("Voyage");
-        tfModel.setText("Volkswagem");
-        tfColor.setText("Prata");
-        tfPlate.setText("AYK-9097");
-        tfValue.setText("32000");
+//        tfBrand.setText("Voyage");
+//        tfModel.setText("Volkswagem");
+//        tfColor.setText("Prata");
+//        tfPlate.setText("AYK-9097");
+//        tfValue.setText("32000");
     }
 
     @FXML

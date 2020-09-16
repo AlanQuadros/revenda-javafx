@@ -17,11 +17,11 @@ public class ListVehicleView {
     @FXML
     private TableColumn<Vehicle, String> plateColumn;
     @FXML
-    private TableColumn<Vehicle, Double> valueColumn;
+    private TableColumn<Vehicle, Number> valueColumn;
     @FXML
-    public static TableView<Vehicle> tableVehicle = new TableView<>();
+    public TableView<Vehicle> tableVehicle = new TableView<>();
 
-    private final ListVehicleController listVehicleController = new ListVehicleController();
+    private final ListVehicleController listVehicleController = ListVehicleController.getInstance();
 
     @FXML
     public void initialize() {

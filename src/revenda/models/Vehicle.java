@@ -10,14 +10,6 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String brand, String model, String color, String plate, double value) {
-        this.brand = brand;
-        this.model = model;
-        this.color = color;
-        this.plate = plate;
-        this.value = value;
-    }
-
     public String getBrand() {
         return brand;
     }

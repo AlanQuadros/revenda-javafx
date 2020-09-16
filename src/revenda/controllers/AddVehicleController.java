@@ -5,7 +5,7 @@ import revenda.models.Vehicle;
 
 public class AddVehicleController {
     private final Resale resale = Resale.getInstance();
-    private final ListVehicleController listVehicleController = new ListVehicleController();
+    private final ListVehicleController listVehicleController = ListVehicleController.getInstance();
 
     public boolean saveVehicle(String brand, String model, String color, String plate, double value) {
         Vehicle vehicle = new Vehicle();
