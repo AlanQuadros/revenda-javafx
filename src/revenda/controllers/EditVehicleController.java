@@ -4,11 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import revenda.models.Resale;
 import revenda.models.Vehicle;
-
-import java.util.ArrayList;
 
 public class EditVehicleController {
     @FXML
@@ -28,6 +24,14 @@ public class EditVehicleController {
     public void initialize() {
         grid.setBorder(new Border(new BorderStroke(Color.GRAY,
                 BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+    }
+
+    public void populateFields(Vehicle vehicle) {
+        tfBrand.setText(vehicle.getBrand());
+        tfModel.setText(vehicle.getModel());
+        tfColor.setText(vehicle.getColor());
+        tfPlate.setText(vehicle.getPlate());
+        tfValue.setText(String.valueOf(vehicle.getValue()));
     }
 
     @FXML

@@ -1,7 +1,5 @@
 package revenda.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,27 +42,28 @@ public class ListVehicleController {
         tableVehicle.setPlaceholder(new Label("Nenhum veículo cadastrado."));
         tableVehicle.setItems(resale.columnData);
 
-        tableVehicle.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Vehicle>() {
-            @Override
-            public void changed(ObservableValue<? extends Vehicle> observable, Vehicle oldValue, Vehicle newValue) {
-//                System.out.println(observable.getValue());
+        tableVehicle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                onSelectRow(observable.getValue())
+        );
+    }
 
-                try {
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/revenda/views/edit_vehicle.fxml"));
-                    loader.load();
+    public void onSelectRow(Vehicle vehicle) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/revenda/views/edit_vehicle.fxml"));
+            loader.load();
 
-                    Parent editRoot = loader.getRoot();
+            EditVehicleController editVehicleController = loader.getController();
+            editVehicleController.populateFields(vehicle);
+            Parent editRoot = loader.getRoot();
 
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(editRoot));
-                    stage.setTitle("Editar veículo");
-                    stage.initModality(Modality.WINDOW_MODAL);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+            Stage stage = new Stage();
+            stage.setScene(new Scene(editRoot));
+            stage.setTitle("Editar veículo");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
