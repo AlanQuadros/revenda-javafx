@@ -36,6 +36,5 @@ public class EditVehicleController {
 
     @FXML
     public void onClickSave() {
-        System.out.println("salvar");
     }
 }
