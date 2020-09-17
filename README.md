@@ -1,1 +1,2 @@
-# revenda-javafx
+# Revenda JavaFX (Example app)
+

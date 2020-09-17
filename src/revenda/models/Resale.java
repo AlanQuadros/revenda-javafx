@@ -1,13 +1,18 @@
 package revenda.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Resale {
     private static Resale instance;
     private final ArrayList<Vehicle> vehicles;
+    public ObservableList<Vehicle> columnData;
 
     private Resale() {
         this.vehicles = new ArrayList<>();
+        this.columnData = FXCollections.observableArrayList(vehicles);
     }
 
     public static synchronized Resale getInstance() {
@@ -18,10 +23,12 @@ public class Resale {
     }
 
     public boolean addVehicle(Vehicle vehicle) {
+        columnData.add(vehicle);
         return vehicles.add(vehicle);
     }
 
     public boolean removeVehicle(Vehicle vehicle) {
+        columnData.remove(vehicle);
         return vehicles.remove(vehicle);
     }
 
