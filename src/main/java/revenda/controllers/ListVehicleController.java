@@ -30,7 +30,7 @@ public class ListVehicleController {
     @FXML
     public TableView<Vehicle> tableVehicle = new TableView<>();
 
-    private final VehicleService vehicleService = new VehicleService();
+    private final VehicleService vehicleService = VehicleService.getInstance();
 
     @FXML
     public void initialize() throws SQLException {

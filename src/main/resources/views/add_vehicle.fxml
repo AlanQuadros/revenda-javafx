@@ -22,7 +22,7 @@
                <GridPane.margin>
                   <Insets top="20.0" />
                </GridPane.margin></Button>
-                <Button fx:id="btnClear" mnemonicParsing="false" onAction="#onClickClear" text="Limpar" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                <Button fx:id="btnClear" mnemonicParsing="false" onAction="#onClickClear" text="Limpar" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets top="20.0" />
                </GridPane.margin></Button>

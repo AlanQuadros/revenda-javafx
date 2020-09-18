@@ -6,8 +6,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import revenda.models.Resale;
 import revenda.models.Vehicle;
+import revenda.services.VehicleService;
 
 public class AddVehicleController {
     @FXML
@@ -23,7 +23,7 @@ public class AddVehicleController {
     @FXML
     private TextField tfValue;
 
-    private final Resale resale = Resale.getInstance();
+    private final VehicleService vehicleService = VehicleService.getInstance();
 
     @FXML
     public void initialize() {
@@ -49,7 +49,7 @@ public class AddVehicleController {
             vehicle.setPlate(tfPlate.getText());
             vehicle.setValue(Double.parseDouble(tfValue.getText()));
 
-            boolean success = resale.addVehicle(vehicle);
+            boolean success = vehicleService.addVehicle(vehicle);
 
             if (success) {
                 clearTextFields();
