@@ -22,7 +22,8 @@ public class Resale {
         return vehicles.add(vehicle);
     }
 
-    public boolean removeVehicle(Vehicle vehicle) {
+    public boolean removeVehicle(String plate) {
+        Vehicle vehicle = findVehicleByPlate((plate));
         return vehicles.remove(vehicle);
     }
 

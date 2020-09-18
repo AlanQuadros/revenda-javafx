@@ -1,11 +1,17 @@
 package revenda.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import revenda.models.Resale;
 import revenda.models.Vehicle;
+
+import java.util.Optional;
 
 public class EditVehicleController {
     @FXML
@@ -20,6 +26,10 @@ public class EditVehicleController {
     private TextField tfPlate;
     @FXML
     private TextField tfValue;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnRemove;
 
     private final Resale resale = Resale.getInstance();
 
@@ -39,13 +49,76 @@ public class EditVehicleController {
 
     @FXML
     public void onClickSave() {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setBrand(tfBrand.getText());
-        vehicle.setModel(tfModel.getText());
-        vehicle.setColor(tfColor.getText());
-        vehicle.setPlate(tfPlate.getText());
-        vehicle.setValue(Double.parseDouble(tfValue.getText()));
+        Alert alert;
+        try {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setBrand(tfBrand.getText());
+            vehicle.setModel(tfModel.getText());
+            vehicle.setColor(tfColor.getText());
+            vehicle.setPlate(tfPlate.getText());
+            vehicle.setValue(Double.parseDouble(tfValue.getText()));
 
-        resale.editVehicle(tfPlate.getText(), vehicle);
+            boolean success = resale.editVehicle(tfPlate.getText(), vehicle);
+
+            if (success) {
+                alert = new Alert(
+                        Alert.AlertType.INFORMATION,
+                        "Veículo alterado com sucesso.",
+                        ButtonType.OK
+                );
+                alert.setHeaderText("Editar");
+                alert.showAndWait();
+            }
+
+            Stage stage = (Stage) btnSave.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            alert = new Alert(
+                    Alert.AlertType.ERROR,
+                    "Ocorreu um erro ao editar o veículo.",
+                    ButtonType.OK
+            );
+            alert.setHeaderText("Erro");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void onClickRemove() {
+        Stage stage = (Stage) btnRemove.getScene().getWindow();
+        stage.close();
+
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                "Deseja remover este veículo?",
+                ButtonType.CANCEL,
+                ButtonType.OK
+        );
+        alert.setHeaderText("Remover veículo");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                boolean success = resale.removeVehicle(tfPlate.getText());
+
+                if (success) {
+                    alert = new Alert(
+                            Alert.AlertType.INFORMATION,
+                            "Veículo removido com sucesso.",
+                            ButtonType.OK
+                    );
+                    alert.setHeaderText("Remover");
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                alert = new Alert(
+                        Alert.AlertType.ERROR,
+                        "Ocorreu um erro ao remover o veículo.",
+                        ButtonType.OK
+                );
+                alert.setHeaderText("Erro");
+                alert.showAndWait();
+            }
+        }
     }
 }
