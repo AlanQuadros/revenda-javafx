@@ -34,6 +34,7 @@ public class ListVehicleController {
 
     @FXML
     public void initialize() throws SQLException {
+        vehicleService.listVehicles();
         brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
         modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -41,7 +42,7 @@ public class ListVehicleController {
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         tableVehicle.setPlaceholder(new Label("Nenhum veículo cadastrado."));
-        tableVehicle.setItems(vehicleService.listVehicles());
+        tableVehicle.setItems(vehicleService.vehicles);
 
         tableVehicle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 onSelectRow(observable.getValue())
@@ -62,8 +63,12 @@ public class ListVehicleController {
             stage.setScene(new Scene(editRoot));
             stage.setTitle("Editar veículo");
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-        } catch (IOException e) {
+            stage.showAndWait();
+
+
+            tableVehicle.getItems().clear();
+            tableVehicle.setItems(vehicleService.listVehicles());
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }

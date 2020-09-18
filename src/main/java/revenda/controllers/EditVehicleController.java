@@ -8,8 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import revenda.models.Resale;
 import revenda.models.Vehicle;
+import revenda.services.VehicleService;
 
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ public class EditVehicleController {
     @FXML
     private Button btnRemove;
 
-    private final Resale resale = Resale.getInstance();
+    private final VehicleService vehicleService = VehicleService.getInstance();
 
     @FXML
     public void initialize() {
@@ -58,7 +58,7 @@ public class EditVehicleController {
             vehicle.setPlate(tfPlate.getText());
             vehicle.setValue(Double.parseDouble(tfValue.getText()));
 
-            boolean success = resale.editVehicle(tfPlate.getText(), vehicle);
+            boolean success = vehicleService.editVehicle(tfPlate.getText(), vehicle);
 
             if (success) {
                 alert = new Alert(
@@ -85,9 +85,6 @@ public class EditVehicleController {
 
     @FXML
     public void onClickRemove() {
-        Stage stage = (Stage) btnRemove.getScene().getWindow();
-        stage.close();
-
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
                 "Deseja remover este veículo?",
@@ -99,7 +96,9 @@ public class EditVehicleController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                boolean success = resale.removeVehicle(tfPlate.getText());
+                boolean success = vehicleService.removeVehicle(tfPlate.getText());
+                Stage stage = (Stage) btnRemove.getScene().getWindow();
+                stage.close();
 
                 if (success) {
                     alert = new Alert(

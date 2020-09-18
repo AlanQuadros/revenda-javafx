@@ -6,8 +6,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import revenda.models.Resale;
 import revenda.models.Vehicle;
+import revenda.services.VehicleService;
 
 public class FindVehicleController {
     @FXML
@@ -25,7 +25,7 @@ public class FindVehicleController {
     @FXML
     private TextField tfFind;
 
-    Resale resale = Resale.getInstance();
+    private final VehicleService vehicleService = VehicleService.getInstance();
 
     @FXML
     public void initialize() {
@@ -51,7 +51,7 @@ public class FindVehicleController {
         }
 
         try {
-            Vehicle vehicle = resale.findVehicleByPlate(tfFind.getText());
+            Vehicle vehicle = vehicleService.findVehicleByPlate(tfFind.getText());
             tfBrand.setText(vehicle.getBrand());
             tfModel.setText(vehicle.getModel());
             tfColor.setText(vehicle.getColor());

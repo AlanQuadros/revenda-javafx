@@ -14,7 +14,7 @@ public class VehicleService {
     Database database;
     public ObservableList<Vehicle> vehicles;
 
-    private VehicleService() {
+    public VehicleService() {
         vehicles = FXCollections.observableArrayList();
     }
 
@@ -65,6 +65,61 @@ public class VehicleService {
             database.shutdown();
 
             return vehicles;
+        }
+    }
+
+    public Vehicle findVehicleByPlate(String plate) throws SQLException {
+        database = new Database();
+
+        try (PreparedStatement statement = database.connection.prepareStatement("SELECT * FROM vehicle where plate = ?")) {
+            statement.setString(1, plate);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs != null) {
+                if (rs.next()) {
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.setBrand(rs.getString("brand"));
+                    vehicle.setModel(rs.getString("model"));
+                    vehicle.setColor(rs.getString("color"));
+                    vehicle.setPlate(rs.getString("plate"));
+                    vehicle.setValue(rs.getDouble("value"));
+
+                    return vehicle;
+                }
+            }
+            return null;
+        } catch (SQLException sqlException) {
+            return null;
+        }
+    }
+
+    public boolean editVehicle(String plate, Vehicle vehicle) throws SQLException {
+        database = new Database();
+
+        try (PreparedStatement statement = database.connection.prepareStatement("UPDATE vehicle SET brand = ?, model = ?, color = ?, value = ? where plate = ?")) {
+            statement.setString(1, vehicle.getBrand());
+            statement.setString(2, vehicle.getModel());
+            statement.setString(3, vehicle.getColor());
+            statement.setDouble(4, vehicle.getValue());
+            statement.setString(5, plate);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException sqlException) {
+            return false;
+        }
+    }
+
+    public boolean removeVehicle(String plate) throws SQLException {
+        database = new Database();
+
+        try (PreparedStatement statement = database.connection.prepareStatement("DELETE FROM vehicle where plate = ?")) {
+            statement.setString(1, plate);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException sqlException) {
+            return false;
         }
     }
 }
