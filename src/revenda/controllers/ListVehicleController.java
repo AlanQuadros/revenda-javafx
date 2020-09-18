@@ -40,7 +40,7 @@ public class ListVehicleController {
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         tableVehicle.setPlaceholder(new Label("Nenhum veículo cadastrado."));
-        tableVehicle.setItems(resale.columnData);
+        tableVehicle.setItems(resale.vehicles);
 
         tableVehicle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 onSelectRow(observable.getValue())

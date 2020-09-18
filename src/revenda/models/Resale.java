@@ -3,16 +3,12 @@ package revenda.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 public class Resale {
     private static Resale instance;
-    private final ArrayList<Vehicle> vehicles;
-    public ObservableList<Vehicle> columnData;
+    public ObservableList<Vehicle> vehicles;
 
     private Resale() {
-        this.vehicles = new ArrayList<>();
-        this.columnData = FXCollections.observableArrayList(vehicles);
+        this.vehicles = FXCollections.observableArrayList();
     }
 
     public static synchronized Resale getInstance() {
@@ -23,17 +19,11 @@ public class Resale {
     }
 
     public boolean addVehicle(Vehicle vehicle) {
-        columnData.add(vehicle);
         return vehicles.add(vehicle);
     }
 
     public boolean removeVehicle(Vehicle vehicle) {
-        columnData.remove(vehicle);
         return vehicles.remove(vehicle);
-    }
-
-    public ArrayList<Vehicle> listVehicles() {
-        return this.vehicles;
     }
 
     public Vehicle findVehicleByPlate(String plate) {
@@ -44,5 +34,16 @@ public class Resale {
         }
 
         return null;
+    }
+
+    public boolean editVehicle(String plate, Vehicle vehicle) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            if (vehicles.get(i).getPlate().equalsIgnoreCase(plate)) {
+                vehicles.remove(i);
+                vehicles.add(i, vehicle);
+                return true;
+            }
+        }
+        return false;
     }
 }

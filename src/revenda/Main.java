@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/revenda/views/tab.fxml")), 600, 480);
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/revenda/views/tab.fxml")), 480, 320);
         primaryStage.setTitle("Revenda");
         primaryStage.setScene(scene);
         primaryStage.show();
